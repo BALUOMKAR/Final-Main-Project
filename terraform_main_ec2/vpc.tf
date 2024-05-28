@@ -27,7 +27,7 @@ resource "aws_subnet" "public-subnet-1" {
 resource "aws_subnet" "public-subnet-2" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
 
   tags = {
@@ -47,9 +47,14 @@ resource "aws_route_table" "rt" {
   }
 }
 
-resource "aws_route_table_association" "rt-association" {
+resource "aws_route_table_association" "rt-association-1" {
   route_table_id = aws_route_table.rt.id
-  subnet_id      = aws_subnet.public-subnet.id
+  subnet_id      = aws_subnet.public-subnet-1.id
+}
+
+resource "aws_route_table_association" "rt-association-2" {
+  route_table_id = aws_route_table.rt.id
+  subnet_id      = aws_subnet.public-subnet-2.id
 }
 
 resource "aws_security_group" "security-group" {
