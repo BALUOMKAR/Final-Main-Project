@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "ap-south-1"  # Specify your desired region
+  region = "us-east-1"  # Specify your desired region
 }
 
  #Creating IAM role for EKS
   resource "aws_iam_role" "master" {
-    name = "veera-eks-master"
+    name = "omkar-eks-master"
 
     assume_role_policy = jsonencode({
       "Version": "2012-10-17",
@@ -36,7 +36,7 @@ provider "aws" {
   }
 
   resource "aws_iam_role" "worker" {
-    name = "veera-eks-worker"
+    name = "omkar-eks-worker"
 
     assume_role_policy = jsonencode({
       "Version": "2012-10-17",
@@ -53,7 +53,7 @@ provider "aws" {
   }
 
   resource "aws_iam_policy" "autoscaler" {
-    name = "veera-eks-autoscaler-policy"
+    name = "omkar-eks-autoscaler-policy"
     policy = jsonencode({
       "Version": "2012-10-17",
       "Statement": [
@@ -113,7 +113,7 @@ provider "aws" {
  # data source 
  data "aws_vpc" "main" {
   tags = {
-    Name = "Jumphost-vpc"  # Specify the name of your existing VPC
+    Name = "cust-vpc"  # Specify the name of your existing VPC
   }
 }
 
@@ -121,7 +121,7 @@ data "aws_subnet" "subnet-1" {
  vpc_id = data.aws_vpc.main.id
  filter {
     name = "tag:Name"
-    values = ["MyPublicSubnet01"]
+    values = ["cust-pub-subnet-1"]
  }
 }
 
@@ -129,7 +129,7 @@ data "aws_subnet" "subnet-2" {
  vpc_id = data.aws_vpc.main.id
  filter {
     name = "tag:Name"
-    values = ["MyPublicSubnet02"]
+    values = ["cust-pub-subnet-2"]
  }
 }
 data "aws_security_group" "selected" {
@@ -142,7 +142,7 @@ data "aws_security_group" "selected" {
 
  #Creating EKS Cluster
   resource "aws_eks_cluster" "eks" {
-    name     = "project-eks"
+    name     = "eks-project"
     role_arn = aws_iam_role.master.arn
 
     vpc_config {

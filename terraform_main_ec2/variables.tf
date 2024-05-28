@@ -7,44 +7,49 @@ variable "region" {
 variable "vpc-name" {
   description = "VPC Name for our Jumphost server"
   type = string
-  default = "Jumphost-vpc"
+  default = "cust-vpc"
 }
 
 variable "igw-name" {
   description = "Internet Gate Way Name for our Jumphost server"
   type = string
-  default = "Jumphost-igw"
+  default = "cust-igw"
 }
 
-variable "subnet-name" {
+variable "subnet-1-name" {
   description = "Subnet Name for our Jumphost server"
   type = string
-  default = "Jumphost-subnet"
+  default = "cust-pub-subnet-1"
+}
+variable "subnet-2-name" {
+  description = "Subnet Name for our Jumphost server"
+  type = string
+  default = "cust-pub-subnet-2"
 }
 
 variable "rt-name" {
   description = "Route Table Name for our Jumphost server"
   type = string
-  default = "Jumphost-rt"
+  default = "cust-rt"
 }
 
 variable "sg-name" {
   description = "Security Group for our Jumphost server"
   type = string
-  default = "Jumphost-sg"
+  default = "cust-sg"
 }
 
 
 variable "iam-role" {
   description = "IAM Role for the Jumphost Server"
   type = string
-  default = "Jumphost-iam-role"
+  default = "cust-iam-role"
 }
 
 variable "ami_id" {
   description = "AMI ID for the EC2 instance"
   type        = string
-  default     = "ami-0c7217cdde317cfec" // Replace with the latest AMI ID for your region
+  default     = "ami-0bb84b8ffd87024d8" // Replace with the latest AMI ID for your region
 }
 
 variable "instance_type" {
@@ -56,12 +61,12 @@ variable "instance_type" {
 variable "key_name" {
   description = "EC2 keypair"
   type        = string
-  default     = "gitopskey"
+  default     = "ansible"
 }
 
 variable "instance_name" {
   description = "EC2 Instance name for the jumphost server"
   type        = string
-  default     = "Jumphost-server"
+  default     = "Main-server"
 }
 #
